@@ -4,7 +4,7 @@
 const router = require("../users/users-router");
 const bcrypt = require('bcryptjs')
 const User = require('../users/users-model')
-const {restricted,checkPasswordLength,checkUsernameFree,checkUsernameExists} = require('../auth/auth-middleware')
+const {checkPasswordLength,checkUsernameFree,checkUsernameExists} = require('../auth/auth-middleware')
 
 /**
   1 [POST] /api/auth/register { "username": "sue", "password": "1234" }
@@ -79,17 +79,17 @@ const {restricted,checkPasswordLength,checkUsernameFree,checkUsernameExists} = r
     "message": "no session"
   }
  */
-  router.get('/logout', restricted,(req, res,next) => {
+  router.get('/logout', (req, res,next) => {
     if(req.session.user) {
       req.session.destroy(err => {
         if(err) {
           next(err)
         } else {
-          res.json({status: 200,message: 'logged out'})
+          res.json({message: 'logged out'})
         }
       })
     } else {
-      res.json({status:200,message: 'no session'})
+      res.json({message: 'no session'})
     }
   })
  
