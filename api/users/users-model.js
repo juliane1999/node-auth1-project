@@ -20,7 +20,7 @@ return db('users').where(filter)
 function findById(user_id) {
 return db('users')
 .select('user_id', 'username')
-.where('user_id', user_id.first())
+.where('user_id', user_id).first()
 }
 
 /**
